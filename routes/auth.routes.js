@@ -6,6 +6,21 @@ const User = require("./../models/User.model");
 const { isAuthenticated } = require("../middlewares/verifyToken.middleware");
 const saltRounds = 10;
 
+
+// DELETE THIS AFTER TESTING HAVING THE ENTIRE API IN THE DB
+// const Art = require("./../models/Artwork.model");
+
+
+// router.post("/art", async(req, res, next)=>{
+//   try {
+//     const res = await Art.create(req.body)
+//     res.status(200).json(res)
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
+
+
 router.post("/signup", (req, res, next) => {
   const { email, password, username } = req.body;
 

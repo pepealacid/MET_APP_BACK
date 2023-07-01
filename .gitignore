@@ -21,3 +21,7 @@ ehthumbs.db
 
 # VS Code
 .vscode/*
+
+# This takes +1GB up of memory
+artworksData.json
+
