@@ -6,4 +6,6 @@ router.put("/:id", isAuthenticated, userController.update);
 
 router.delete("/:id", isAuthenticated, userController.delete)
 
+router.get("/get-user", isAuthenticated, userController.get)
+
 module.exports = router;
