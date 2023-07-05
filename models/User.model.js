@@ -4,7 +4,6 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: [true, "Username is required."],
       lowercase: true,
       trim: true,
     },
@@ -35,7 +34,7 @@ const userSchema = new Schema(
     },
 
     artworksSaved: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Artwork" }],
+      type: [String],
     },
 
     intinerariesSaved: {

@@ -13,13 +13,18 @@ module.exports.get = async (req, res, next) => {
 
 module.exports.update = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    const { id, artworkId } = req.params;
+    const user = await User.findByIdAndUpdate(
+      id,
+      { $push: { artworksSaved: artworkId } },
+      { new: true }
+    );
     return res.status(200).json(user);
   } catch (error) {
     next(error);
   }
 };
+
 
 module.exports.delete = async (req, res, next) => {
   try {
