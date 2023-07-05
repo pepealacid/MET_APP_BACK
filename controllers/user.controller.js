@@ -24,7 +24,10 @@ module.exports.update = async (req, res, next) => {
     next(error);
   }
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 05700b82c9a10e76cc623556b0ca700baa0c7021
 
 module.exports.delete = async (req, res, next) => {
   try {
