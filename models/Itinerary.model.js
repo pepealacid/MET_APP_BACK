@@ -15,6 +15,12 @@ const itinerarySchema = new Schema(
             type: String, 
             uppercase: true, 
             enum: ["FAST", "MEDIUM", "SLOW"]
+        },
+        rating: {
+            type: [Number],
+        },
+        timesFinished: {
+            type: Number
         }
     }
 )
