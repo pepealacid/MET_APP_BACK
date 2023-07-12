@@ -21,7 +21,9 @@ module.exports.update = async (req, res, next) => {
         { new: true }
       );
       return res.status(200).json(user);
-    } else {console.log("User alredy likes that artwork")}
+    } else {
+      console.log("User alredy likes that artwork");
+    }
   } catch (error) {
     next(error);
   }
@@ -34,6 +36,17 @@ module.exports.delete = async (req, res, next) => {
     return res
       .status(200)
       .json({ message: `User ${id} successfully deleted 🗑` });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.list = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log(id)
+    const user = await User.findById(id);
+    return res.status(200).json(user.artworksSaved);
   } catch (error) {
     next(error);
   }
