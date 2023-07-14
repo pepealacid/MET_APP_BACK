@@ -30,7 +30,7 @@ const userSchema = new Schema(
     },
 
     artistsSaved: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
+      type: [String],
     },
 
     artworksSaved: {

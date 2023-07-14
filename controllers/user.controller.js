@@ -75,7 +75,6 @@ module.exports.updateFavoriteArtists = async (req, res, next) => {
 
     // Save the updated user object
     const updatedUser = await user.save();
-    console.log("EL NUEVO", updatedUser);
     return res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
