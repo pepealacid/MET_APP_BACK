@@ -2,14 +2,31 @@ const router = require("express").Router();
 const userController = require("../controllers/user.controller");
 const { isAuthenticated } = require("../middlewares/verifyToken.middleware");
 
-router.put("/addfav/:id/:artworkId", isAuthenticated, userController.update);
+//Get and update artworks
+router.get("/artworks/favorites/:id", isAuthenticated, userController.getFavoriteArtworks);
 
-router.put("/deletefav/:id/:artworkId", isAuthenticated, userController.update)
+router.put(
+  "/artworks/update-favorites/:id/:artworkID",
+  isAuthenticated,
+  userController.updateFavoriteArtworks
+);
 
+//Get and update artists
+router.get("/artists/favorites/:id", isAuthenticated, userController.getFavoriteArtists);
+
+router.put(
+  "/artists/update-favorites/:id/:artistID",
+  isAuthenticated,
+  userController.updateFavoriteArtists
+);
+
+//Handle user info
 router.delete("/:id", isAuthenticated, userController.delete);
 
 router.get("/get-user", isAuthenticated, userController.get);
 
-router.get("/favorites/:id", isAuthenticated, userController.list);
+
+
+
 
 module.exports = router;
