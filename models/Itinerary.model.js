@@ -9,19 +9,10 @@ const itinerarySchema = new Schema(
         },
         artpieces: [{type: Schema.Types.ObjectId, ref: "Artwork"}],
         estimatedTime: {
-            type: String, 
-        }, 
-        speed: {
-            type: String, 
-            uppercase: true, 
-            enum: ["FAST", "MEDIUM", "SLOW"]
+            type: [Number]
         },
-        rating: {
-            type: [Number],
-        },
-        timesFinished: {
-            type: Number
-        }
+        rating: [Number]
+        
     }
 )
 
