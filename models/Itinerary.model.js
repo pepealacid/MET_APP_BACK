@@ -2,26 +2,16 @@ const { Schema, model } = require("mongoose")
 
 const itinerarySchema = new Schema(
     {
-        name: {
-            type: String, 
-            required: [true, "You should give a name to this tour"],
-            trim: true
-        },
-        artpieces: [{type: Schema.Types.ObjectId, ref: "Artwork"}],
-        estimatedTime: {
-            type: String, 
-        }, 
-        speed: {
-            type: String, 
-            uppercase: true, 
-            enum: ["FAST", "MEDIUM", "SLOW"]
-        },
-        rating: {
-            type: [Number],
-        },
-        timesFinished: {
-            type: Number
-        }
+        name: String, 
+        departments: [String], 
+        departmentsId: [Number],
+        rating: [Number], 
+        artworkId: [Number], 
+        artworkData: [Object],
+        desiredTime: [String], 
+        galleriesId: [String], 
+        path: [], 
+        calculatedTime: Number
     }
 )
 

@@ -20,6 +20,10 @@ router.put(
   userController.updateFavoriteArtists
 );
 
+// update users itineraries
+
+router.put("/itineraries/:userId", isAuthenticated, userController.updateItinerary)
+
 //Handle user info
 router.delete("/:id", isAuthenticated, userController.delete);
 
