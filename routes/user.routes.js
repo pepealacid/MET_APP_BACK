@@ -21,8 +21,11 @@ router.put(
 );
 
 // update users itineraries
-
 router.put("/itineraries/:userId", isAuthenticated, userController.updateItinerary)
+
+// get user's itineraries 
+
+router.get("/itineraries/:userId", isAuthenticated, userController.getItinerary)
 
 //Handle user info
 router.delete("/:id", isAuthenticated, userController.delete);

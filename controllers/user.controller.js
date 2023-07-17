@@ -108,3 +108,16 @@ module.exports.updateItinerary = async (req, res, next) => {
     next(error);
   }
 };
+
+
+module.exports.getItinerary = async (req, res, next) => {
+  try {
+    const { userId } = req.params
+    const user = await User.findById(userId).populate("intinerariesSaved")
+    return res.status(200).json(user.intinerariesSaved);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
