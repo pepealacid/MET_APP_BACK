@@ -3,27 +3,7 @@ const Itinerary = require("../models/Itinerary.model");
 
 module.exports.create = async (req, res, next) => {
     try {
-        const { name, artpieces, estimatedTime, speed } = req.body
-
-        if (!name) {
-            res.status(400).json({ message: "The itinerary must have a name" })
-            return
-        }
-
-        if (!(speed == "FAST" || speed == "MEDIUM" || speed == "SLOW")) {
-            res.status(400).json({
-                message: "The itinerary must have one of the following speeds 'FAST' 'MEDIUM' 'SLOW'"
-            })
-            return
-        }
-        if (!estimatedTime) {
-            res.status(400).json({
-                message: "We cannot create an itinerary with no time"
-            })
-            return
-        }
-
-        const itinerary = await Itinerary.create({ name, artpieces, estimatedTime, speed })
+        const itinerary = await Itinerary.create(req.body)
         res.status(201).json(itinerary)
 
     } catch (error) {
@@ -44,29 +24,9 @@ module.exports.detail = async (req, res, next) => {
 
 module.exports.update = async (req, res, next) => {
     try {
-        const { name, artpieces, estimatedTime, speed } = req.body
         const { id } = req.params
-
-        if (!name) {
-            res.status(400).json({ message: "The itinerary must have a name" })
-            return
-        }
-
-        if (!(speed == "FAST" || speed == "MEDIUM" || speed == "SLOW")) {
-            res.status(400).json({
-                message: "The itinerary must have one of the following speeds 'FAST' 'MEDIUM' 'SLOW'"
-            })
-            return
-        }
-        if (!estimatedTime) {
-            res.status(400).json({
-                message: "We cannot edit an itinerary with no time"
-            })
-            return
-        }
         const itinerary = await Itinerary.findByIdAndUpdate(id, req.body, { new: true })
         res.status(200).json(itinerary)
-
     } catch (error) {
         console.log(error)
         next(error)

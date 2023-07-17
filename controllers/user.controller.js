@@ -92,3 +92,19 @@ module.exports.delete = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.updateItinerary = async (req, res, next) => {
+  try {
+    const {userId} = req.params
+    const {itineraryId} = req.body
+
+    const user = await User.findById(userId)
+    user.intinerariesSaved.push(itineraryId)
+
+    const updatedUser = await user.save();
+    return res.status(200).json(updatedUser);
+    
+  } catch (error) {
+    next(error);
+  }
+};
