@@ -15,7 +15,6 @@ module.exports.get = async (req, res, next) => {
 module.exports.getFavoriteArtworks = async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const user = await User.findById(id);
     return res.status(200).json(user.artworksSaved);
   } catch (error) {
@@ -50,7 +49,6 @@ module.exports.updateFavoriteArtworks = async (req, res, next) => {
 module.exports.getFavoriteArtists = async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const user = await User.findById(id);
     return res.status(200).json(user.artistsSaved);
   } catch (error) {
