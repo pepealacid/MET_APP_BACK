@@ -22,6 +22,28 @@ module.exports.getFavoriteArtworks = async (req, res, next) => {
   }
 };
 
+module.exports.changeFirstTime = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    user.firstTime = false;
+    const updatedUser = await user.save();
+    return res.status(200).json(updatedUser)
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.getFirstTime = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    return res.status(200).json(user.firstTime);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports.updateFavoriteArtworks = async (req, res, next) => {
   try {
     const { id, artworkID } = req.params;
@@ -93,15 +115,14 @@ module.exports.delete = async (req, res, next) => {
 
 module.exports.updateItinerary = async (req, res, next) => {
   try {
-    const {userId} = req.params
-    const {itineraryId} = req.body
+    const { userId } = req.params;
+    const { itineraryId } = req.body;
 
-    const user = await User.findById(userId)
-    user.intinerariesSaved.push(itineraryId)
+    const user = await User.findById(userId);
+    user.intinerariesSaved.push(itineraryId);
 
     const updatedUser = await user.save();
     return res.status(200).json(updatedUser);
-    
   } catch (error) {
     next(error);
   }

@@ -22,7 +22,7 @@ const userSchema = new Schema(
     },
 
     image: {
-      type: String
+      type: String,
     },
 
     description: {
@@ -41,6 +41,10 @@ const userSchema = new Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Itinerary" }],
     },
 
+    firstTime: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
