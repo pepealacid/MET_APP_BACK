@@ -28,7 +28,7 @@ module.exports.changeFirstTime = async (req, res, next) => {
     const user = await User.findById(id);
     user.firstTime = false;
     const updatedUser = await user.save();
-    return res.status(200).json(updatedUser)
+    return res.status(200).json(updatedUser);
   } catch (error) {
     console.log(error);
   }
@@ -127,3 +127,17 @@ module.exports.updateItinerary = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+
+    const user = await User.findByIdAndUpdate(id, body);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+

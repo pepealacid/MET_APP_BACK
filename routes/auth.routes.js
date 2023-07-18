@@ -6,10 +6,8 @@ const User = require("./../models/User.model");
 const { isAuthenticated } = require("../middlewares/verifyToken.middleware");
 const saltRounds = 10;
 
-
 // DELETE THIS AFTER TESTING HAVING THE ENTIRE API IN THE DB
 // const Art = require("./../models/Artwork.model");
-
 
 // router.post("/art", async(req, res, next)=>{
 //   try {
@@ -19,7 +17,6 @@ const saltRounds = 10;
 //     console.log(error)
 //   }
 // })
-
 
 router.post("/signup", (req, res, next) => {
   const { email, password } = req.body;
@@ -32,7 +29,7 @@ router.post("/signup", (req, res, next) => {
   }
 
   User.findOne({ email })
-    .then(foundUser => {
+    .then((foundUser) => {
       if (foundUser) {
         res.status(400).json({ message: "User already exists." });
         return;
@@ -43,13 +40,13 @@ router.post("/signup", (req, res, next) => {
 
       return User.create({ email, password: hashedPassword });
     })
-    .then(createdUser => {
+    .then((createdUser) => {
       const { email, _id } = createdUser;
       const user = { email, _id };
 
       res.status(201).json({ user });
     })
-    .catch(err => {
+    .catch((err) => {
       next(err);
     });
 });
@@ -63,7 +60,7 @@ router.post("/login", (req, res, next) => {
   }
 
   User.findOne({ email })
-    .then(foundUser => {
+    .then((foundUser) => {
       if (!foundUser) {
         res.status(401).json({ message: "User not found." });
         return;
@@ -76,7 +73,7 @@ router.post("/login", (req, res, next) => {
 
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
           algorithm: "HS256",
-          expiresIn: "6h"
+          expiresIn: "6h",
         });
 
         res.json({ authToken });
@@ -84,7 +81,7 @@ router.post("/login", (req, res, next) => {
         res.status(401).json({ message: "Unable to authenticate the user" });
       }
     })
-    .catch(err => next(err));
+    .catch((err) => next(err));
 });
 
 router.get("/verify", isAuthenticated, (req, res, next) => {
@@ -92,5 +89,39 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 
+router.put("/change-password/:userId", (req, res, next) => {
+  const { currentPassword, newPassword } = req.body;
+  const { userId } = req.params;
+  console.log("ROUTE", currentPassword, newPassword)
+  User.findById(userId)
+    .then((user) => {
+      bcrypt
+        .compare(currentPassword, user.password)
+        .then((isPasswordCorrect) => {
+          if (!isPasswordCorrect) {
+            return res
+              .status(400)
+              .json({ message: "Current password is incorrect." });
+          }
+
+          const salt = bcrypt.genSaltSync(saltRounds);
+          const hashedPassword = bcrypt.hashSync(newPassword, salt);
+
+          user.password = hashedPassword;
+          return user.save();
+        })
+        .then(() => {
+          return res
+            .status(200)
+            .json({ message: "Password changed successfully." });
+        })
+        .catch((error) => {
+          next(error);
+        });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
 module.exports = router;
