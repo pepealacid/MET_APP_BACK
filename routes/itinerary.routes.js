@@ -1,14 +1,16 @@
 const router = require("express").Router()
 const Itinerary = require("../models/Itinerary.model")
 const itineraryController = require("../controllers/itinerary.controller")
+const { isAuthenticated } = require("../middlewares/verifyToken.middleware");
 
-router.post("/", itineraryController.create)
 
-router.get("/:id", itineraryController.detail)  
+router.post("/",isAuthenticated, itineraryController.create)
 
-router.put("/:id", itineraryController.update) 
+router.get("/:id", isAuthenticated, itineraryController.detail)  
 
-router.delete("/:id", itineraryController.delete)
+router.put("/:id", isAuthenticated, itineraryController.update) 
+
+router.delete("/:id", isAuthenticated,  itineraryController.delete)
 
 
 module.exports = router

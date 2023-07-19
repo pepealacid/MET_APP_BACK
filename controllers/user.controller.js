@@ -139,5 +139,30 @@ module.exports.updateUser = async (req, res, next) => {
     console.log(error);
   }
 };
+module.exports.removeItinerary = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { itineraryId } = req.body;
 
+    const user = await User.findById(userId);
+    console.log(user.intinerariesSaved);
+    const filtered = user.intinerariesSaved.filter(
+      (itinerary) => itinerary != itineraryId
+    );
+    user.intinerariesSaved = filtered;
+    const updatedUser = await user.save();
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
 
+module.exports.getItinerary = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId).populate("intinerariesSaved");
+    return res.status(200).json(user.intinerariesSaved);
+  } catch (error) {
+    next(error);
+  }
+};
