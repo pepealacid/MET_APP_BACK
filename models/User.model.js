@@ -39,11 +39,6 @@ const userSchema = new Schema(
     intinerariesSaved: {
       type: [{ type: Schema.Types.ObjectId, ref: "Itinerary" }],
     },
-
-    firstTime: {
-      type: Boolean,
-      default: true,
-    },
   },
   {
     timestamps: true,
