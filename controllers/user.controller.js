@@ -109,6 +109,23 @@ module.exports.updateItinerary = async (req, res, next) => {
   }
 };
 
+module.exports.removeItinerary = async (req, res, next) => {
+  try {
+    const { userId } = req.params
+    const { itineraryId } = req.body
+
+    const user = await User.findById(userId)
+    console.log(user.intinerariesSaved)
+    const filtered = user.intinerariesSaved.filter(itinerary => itinerary != itineraryId)
+    user.intinerariesSaved = filtered
+    const updatedUser = await user.save();
+    return res.status(200).json(updatedUser);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 module.exports.getItinerary = async (req, res, next) => {
   try {
