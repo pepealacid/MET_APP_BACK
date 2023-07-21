@@ -43,3 +43,13 @@ module.exports.delete = async (req, res, next) => {
         next(error)
     }
 }
+
+module.exports.getAll = async (req, res, next) =>{
+    try {
+        const itineraries = await Itinerary.find()
+        res.status(200).json(itineraries)
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}

@@ -18,7 +18,11 @@ const itinerarySchema = new Schema(
             type: String, 
             default: "https://static01.nyt.com/images/2018/07/22/travel/22Getaway-1/22Getaway-1-superJumbo.jpg?quality=75&auto=webp"
         },
-        calculatedTime: Number
+        calculatedTime: Number, 
+        tag: {
+            type: String, 
+            default: null
+        }
     }
 )
 
