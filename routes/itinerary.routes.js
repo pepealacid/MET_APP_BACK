@@ -12,5 +12,6 @@ router.put("/:id", isAuthenticated, itineraryController.update)
 
 router.delete("/:id", isAuthenticated,  itineraryController.delete)
 
+router.get("/", isAuthenticated, itineraryController.getAll)
 
 module.exports = router
